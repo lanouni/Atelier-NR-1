@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 
 namespace Atelier1
 {
@@ -7,30 +7,32 @@ namespace Atelier1
     {
         private static int cpt = 0;
         private int num;
-        private MAD solde;
-        private Client client;
+        protected MAD solde;
         private static MAD plafond = new MAD(2000);
-        public Compte(float s , string n , string p , string a)
+        private List<Operation> op;
+        public Compte(float s )
         {
             cpt += 1;
             num = cpt;
             solde = new MAD(s);
-            client = new Client(n, p, a);
+            op = new List<Operation>();
         }
         public bool crediter(MAD montant)
         {
             if (MAD.test(montant,plafond) == false)
             {
                 solde = solde + montant;
+                op.Add(new Operation(montant,"credite"));
                 return true;
             }
             return false;
         }
-        public bool debiter(MAD montant)
+        public virtual bool debiter(MAD montant)
         {
             if (MAD.test(montant, plafond) == false)
             {
                 solde = solde - montant;
+                op.Add(new Operation(montant, "debiter"));
                 return true;
             }
             return false;
@@ -42,8 +44,7 @@ namespace Atelier1
         }
         public void afficher()
         {
-            client.afficher();
-            Console.WriteLine("matricule "+num+"\n");
+            Console.Write("matricule "+num);
             solde.afficer();
         }
     }

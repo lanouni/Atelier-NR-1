@@ -15,7 +15,7 @@ namespace Atelier1
         }
         public void afficer()
         {
-            Console.Write("le solde est : " + valeur + " ");
+            Console.WriteLine(" le solde est : " + valeur + " ");
         }
         public static MAD operator+(MAD m ,MAD c)
         {
@@ -33,6 +33,12 @@ namespace Atelier1
         public static MAD operator-(MAD A, MAD B)
         {
             MAD t = new MAD(A.valeur-B.valeur);
+            return t;
+        }
+        public static MAD operator *(MAD A, float b)
+        {
+            float resultat = A.valeur * b;
+            MAD t = new MAD(resultat);
             return t;
         }
     }
